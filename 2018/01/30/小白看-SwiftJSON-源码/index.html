@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="SwiftyJSON 初始化一个 JSON 对象需要指出的 JSON 对象实际上是一个值类型的结构体public struct JSON 第一步：JSON 使用JSONSerialization.jsonObject(with:options:)将json数据转为对象1234public init(data: Data, options opt: JSONSerialization.Reading">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小白看 SwiftJSON 源码">
+<meta property="og:url" content="http://bamboomoon.cn/2018/01/30/小白看-SwiftJSON-源码/index.html">
+<meta property="og:site_name" content="bamboomoon&#39;s Blog">
+<meta property="og:description" content="SwiftyJSON 初始化一个 JSON 对象需要指出的 JSON 对象实际上是一个值类型的结构体public struct JSON 第一步：JSON 使用JSONSerialization.jsonObject(with:options:)将json数据转为对象1234public init(data: Data, options opt: JSONSerialization.Reading">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-01-30T08:59:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="小白看 SwiftJSON 源码">
+<meta name="twitter:description" content="SwiftyJSON 初始化一个 JSON 对象需要指出的 JSON 对象实际上是一个值类型的结构体public struct JSON 第一步：JSON 使用JSONSerialization.jsonObject(with:options:)将json数据转为对象1234public init(data: Data, options opt: JSONSerialization.Reading">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://bamboomoon.cn/2018/01/30/小白看-SwiftJSON-源码/"/>
+
+
+
+
+
+  <title>小白看 SwiftJSON 源码 | bamboomoon's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">bamboomoon's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bamboomoon.cn/2018/01/30/小白看-SwiftJSON-源码/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="bamboomoon">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://7xwhg8.com1.z0.glb.clouddn.com/touxiang.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="bamboomoon's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">小白看 SwiftJSON 源码</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-30T16:58:40+08:00">
+                2018-01-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="SwiftyJSON-初始化一个-JSON-对象"><a href="#SwiftyJSON-初始化一个-JSON-对象" class="headerlink" title="SwiftyJSON 初始化一个 JSON 对象"></a>SwiftyJSON 初始化一个 JSON 对象</h2><p><em>需要指出的 JSON 对象实际上是一个值类型的结构体<code>public struct JSON</code></em></p>
+<h5 id="第一步：JSON-使用JSONSerialization-jsonObject-with-options-将json数据转为对象"><a href="#第一步：JSON-使用JSONSerialization-jsonObject-with-options-将json数据转为对象" class="headerlink" title="第一步：JSON 使用JSONSerialization.jsonObject(with:options:)将json数据转为对象"></a>第一步：JSON 使用JSONSerialization.jsonObject(with:options:)将json数据转为对象</h5><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">init</span>(data: <span class="type">Data</span>, options opt: <span class="type">JSONSerialization</span>.<span class="type">ReadingOptions</span> = []) <span class="keyword">throws</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> object: <span class="type">Any</span> = <span class="keyword">try</span> <span class="type">JSONSerialization</span>.jsonObject(with: data, options: opt)</span><br><span class="line">    <span class="keyword">self</span>.<span class="keyword">init</span>(jsonObject: object)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>可以看到这个方法会抛出异常，如果开发者直接调用这个方法就必须来处理这个异常，这样又麻烦了一步。所以作者直接又写了个方法，处理了这个异常，代码如下:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">init</span>(<span class="number">_</span> object: <span class="type">Any</span>) &#123;</span><br><span class="line">    <span class="keyword">switch</span> object &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="keyword">let</span> object <span class="keyword">as</span> <span class="type">Data</span>:</span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            <span class="keyword">try</span> <span class="keyword">self</span>.<span class="keyword">init</span>(data: object)</span><br><span class="line">        &#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">                <span class="comment">/// 如果有异常就直接设置为空对象</span></span><br><span class="line">                <span class="keyword">self</span>.<span class="keyword">init</span>(jsonObject: <span class="type">NSNull</span>())</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        <span class="comment">/// 如果不是 Data 就直接调用了 init(jsonObject:)</span></span><br><span class="line">        <span class="comment">/// object 如果不是 json 支持的哪几种格式怎么办呢。所以 init(jsonObject:)肯定做了处理</span></span><br><span class="line">        <span class="keyword">self</span>.<span class="keyword">init</span>(jsonObject: object)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们看到上面两个方法最后都调用了init(jsonObject:）方法</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// fileprivate 方法，直接把 jsonObject 赋值给 self.object</span></span><br><span class="line"><span class="keyword">fileprivate</span> <span class="keyword">init</span>(jsonObject: <span class="type">Any</span>) &#123;</span><br><span class="line">    <span class="keyword">self</span>.object = jsonObject</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="第二步-self-object中-处理-jsonObject"><a href="#第二步-self-object中-处理-jsonObject" class="headerlink" title="第二步: self.object中 处理 jsonObject"></a>第二步: self.object中 处理 jsonObject</h3><p>首先 <figure class="highlight plain"><figcaption><span>JSON``` 中声明了8个变量，他们分别是：</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">```swift</span><br><span class="line"></span><br><span class="line">    /// Private object</span><br><span class="line">    fileprivate var rawArray: [Any] = []</span><br><span class="line">    fileprivate var rawDictionary: [String: Any] = [:]</span><br><span class="line">    fileprivate var rawString: String = &quot;&quot;</span><br><span class="line">    fileprivate var rawNumber: NSNumber = 0</span><br><span class="line">    fileprivate var rawNull: NSNull = NSNull()</span><br><span class="line">    fileprivate var rawBool: Bool = false</span><br><span class="line"></span><br><span class="line">    /// JSON type, fileprivate setter</span><br><span class="line">    public fileprivate(set) var type: Type = .null</span><br><span class="line"></span><br><span class="line">    /// Error in JSON, fileprivate setter</span><br><span class="line">    public fileprivate(set) var error: SwiftyJSONError?</span><br></pre></td></tr></table></figure></p>
+<p>在 <figure class="highlight plain"><figcaption><span>属性的 ```set``` 中对赋值过来的 ```jsonObject``` 做处理</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">在 ```set``` 方法中做了两件事:</span><br><span class="line">1. 调用```unwrap(_:)```。如果是Array、Dictionary、JSON就做**递归处理**。最后返回一个```Any```对象</span><br><span class="line">2. 判断```Any```对象的类型，来确定当前 ```JSON``` 的 ```type```，以及将值赋值给对应的 ```rawValue``` 属性</span><br><span class="line"></span><br><span class="line">经过这样一处理，我们就得到了一个基本数据类型(e.g., Array、Dictionary...)</span><br><span class="line"></span><br><span class="line">## JSON Subscript</span><br><span class="line"></span><br><span class="line">我们知道 SwiftyJSON 最方便的就是可以直接可以通过下标获取对应的数据。So, 让我们看看作者都做了什么处理.</span><br><span class="line"></span><br><span class="line">#### SwiftyJSON 重载了5个下标实现</span><br><span class="line"></span><br><span class="line">```Swift </span><br><span class="line"> fileprivate subscript(index index: Int) -&gt; JSON</span><br><span class="line"> fileprivate subscript(key key: String) -&gt; JSON</span><br><span class="line"> fileprivate subscript(sub sub: JSONSubscriptType) -&gt; JSON</span><br><span class="line"> public subscript(path: [JSONSubscriptType]) -&gt; JSON</span><br><span class="line"> public subscript(path: JSONSubscriptType...) -&gt; JSON</span><br></pre></td></tr></table></figure></p>
+<p>可以看到5个之中只有<figure class="highlight plain"><figcaption><span>subscript(path: [JSONSubscriptType]) -> JSON 和 public subscript(path: JSONSubscriptType...) -> JSON</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">```是暴露出来的。因此，我们平时使用下标取值时，调用的就是这两个</span><br><span class="line"></span><br><span class="line">在我们平时使用时，用得下标要么是 Int 要么是 String。但是这里明明是接收的 **JSONSubscriptType**. So,可以作者肯定是将我们用得 Int/String 转成了 JSONSubscriptType。源码：</span><br><span class="line"></span><br><span class="line">```Swift </span><br><span class="line">// 定义了一个JSONSubscriptType接口，其中有 readOnly 属性 和 一个 JSONKey enum </span><br><span class="line">public enum JSONKey &#123;</span><br><span class="line">    case index(Int)</span><br><span class="line">    case key(String)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public protocol JSONSubscriptType &#123;</span><br><span class="line">    var jsonKey: JSONKey &#123; get &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// Int 实现JSONSubscriptType接口</span><br><span class="line">// 并将 Int 本身作为 JSONKey.index(Int) 的关联值保存起来了</span><br><span class="line">extension Int: JSONSubscriptType &#123;</span><br><span class="line">    public var jsonKey: JSONKey &#123;</span><br><span class="line">        return JSONKey.index(self)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// String 也和上面的 Int 同理</span><br><span class="line">extension String: JSONSubscriptType &#123;</span><br><span class="line">    public var jsonKey: JSONKey &#123;</span><br><span class="line">        return JSONKey.key(self)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>现在就能解释为什么用 Int/String 也可以。一句话：Int/String 实现了 JSONSubscriptType protocol</p>
+<hr>
+<h3 id="SwiftyJSON-路径下标"><a href="#SwiftyJSON-路径下标" class="headerlink" title="SwiftyJSON 路径下标"></a>SwiftyJSON 路径下标</h3><p>SwiftyJSON 下标有以下几种：</p>
+<ol>
+<li><figure class="highlight plain"><figcaption><span>```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2. ``` json[9]</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4. ``` json[9][&quot;list&quot;][&quot;person&quot;][&quot;name&quot;]</span><br></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight plain"><figcaption><span>path </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">前4种都是调用```  public subscript(path: JSONSubscriptType...) -&gt; JSON ``` 这个下标实现。因为它接收的JSONSubscriptType类型的变长参数</span><br><span class="line"></span><br><span class="line">最后一种调用的是：``` public subscript(path: [JSONSubscriptType]) -&gt; JSON ```.接收 JSONSubscriptType 数组</span><br><span class="line"></span><br><span class="line">在说他们的具体实现之前，先需要弄明白其它 3 个fileprivate 的下标实现的作用*(只说 set)*:</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">**fileprivate subscript(index index: Int) -&gt; JSON 作用**</span><br><span class="line"></span><br><span class="line">```Swift</span><br><span class="line">处理 Int 类型的下标，首先判断使用这个下标的 JSON 是不是Array 类型。</span><br><span class="line">不是Array 类型： return JSON.null， error 设置为SwiftyJSONError.wrongType</span><br><span class="line">是Array 类型： 判断下标是否越界。</span><br><span class="line">已经越界：return JSON.null， error 设置为SwiftyJSONError.indexOutOfBounds </span><br><span class="line">没有越界：JSON(self.rawArray[index])，拿到这个下标对应的值，并封装成 JSON 返回</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><strong>subscript(key key: String) 作用</strong></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fileprivate</span> <span class="keyword">subscript</span>(key key: <span class="type">String</span>) -&gt; <span class="type">JSON</span></span><br><span class="line">处理 <span class="type">String</span> 下标，判断使用这个下标的 <span class="type">JSON</span>是不是 <span class="type">Dictionary</span> 类型</span><br><span class="line">是 <span class="type">Dictionary</span> 类型： 用这个下标去取值</span><br><span class="line">取出的值 != <span class="literal">nil</span>： 封装成 <span class="type">JSON</span> 返回</span><br><span class="line">取出的值 == <span class="literal">nil</span>: 返回 <span class="type">JSON</span>.null, error ==  <span class="type">SwiftyJSONError</span>.notExist</span><br><span class="line">不是 <span class="type">Dictionary</span> 类型: 返回 <span class="type">JSON</span>.null, error ==  <span class="type">SwiftyJSONError</span>.wrongType</span><br></pre></td></tr></table></figure>
+<p><strong>subscript(sub sub: JSONSubscriptType) 作用</strong></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">它起着分发的作用： 决定了去调用上面中的那一个</span><br><span class="line">判断 sub 的 jsonKey 属性，是 <span class="keyword">case</span> index(<span class="type">Int</span>) 还是 <span class="keyword">case</span> key(<span class="type">String</span>)</span><br><span class="line">是 <span class="keyword">case</span> index(<span class="type">Int</span>),则调用<span class="keyword">subscript</span>(index index: <span class="type">Int</span>)，关联值作参</span><br><span class="line">是 <span class="keyword">case</span> key(<span class="type">String</span>),则调用<span class="keyword">subscript</span>(key key: <span class="type">String</span>)，关联值作参</span><br></pre></td></tr></table></figure>
+<hr>
+<p><strong>subscript(path: JSONSubscriptType…) 内部实现</strong></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">get</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>[path]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">注意： 这里调用的可能是两个不同的下标实现</span><br><span class="line"><span class="number">2</span>、<span class="number">3</span>、<span class="number">4</span>中调用的是 <span class="keyword">fileprivate</span> <span class="keyword">subscript</span>(sub sub: <span class="type">JSONSubscriptType</span>)</span><br><span class="line">第<span class="number">1</span>种调用的是： <span class="keyword">subscript</span>(path: [<span class="type">JSONSubscriptType</span>])</span><br><span class="line"></span><br><span class="line">因为第一种参数是 [<span class="type">JSONSubscriptType</span>]</span><br><span class="line"><span class="number">2</span>、<span class="number">3</span>、<span class="number">4</span>参数都是 <span class="type">JSONSubscriptType</span></span><br><span class="line"></span><br><span class="line">因为下标最后返回的是 <span class="type">JSON</span>，所有也还可以用下标。所以就有了第<span class="number">4</span>种</span><br></pre></td></tr></table></figure>
+<p><strong>subscript(path: [JSONSubscriptType]) 内部实现</strong></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">get</span> &#123;</span><br><span class="line"> <span class="keyword">return</span> path.<span class="built_in">reduce</span>(<span class="keyword">self</span>) &#123; $<span class="number">0</span>[sub: $<span class="number">1</span>] &#125;</span><br><span class="line">&#125;</span><br><span class="line">这段代码的意思： </span><br><span class="line">等于 json[<span class="number">9</span>][<span class="string">"list"</span>][<span class="string">"person"</span>][<span class="string">"name"</span>] 的意思</span><br><span class="line">每次用调用之后返回的 <span class="type">JSON</span> 再去调用</span><br></pre></td></tr></table></figure>
+<p><strong>SwiftJSON之所有可以使用路径下标，就是因为每次使用下标返回的都是 JSON。这跟 OC 使用…的链式调用有着异曲同工的作用</strong> </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/30/Swift-Comparable-protocol/" rel="next" title="Swift Comparable protocol">
+                <i class="fa fa-chevron-left"></i> Swift Comparable protocol
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://7xwhg8.com1.z0.glb.clouddn.com/touxiang.jpg"
+               alt="bamboomoon" />
+          <p class="site-author-name" itemprop="name">bamboomoon</p>
+           
+              <p class="site-description motion-element" itemprop="description">聊吧 迟早出事</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+      <br>
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 
+src="//music.163.com/outchain/player?type=2&id=429769591&auto=1&height=66"></iframe>
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SwiftyJSON-初始化一个-JSON-对象"><span class="nav-number">1.</span> <span class="nav-text">SwiftyJSON 初始化一个 JSON 对象</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#第一步：JSON-使用JSONSerialization-jsonObject-with-options-将json数据转为对象"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">第一步：JSON 使用JSONSerialization.jsonObject(with:options:)将json数据转为对象</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二步-self-object中-处理-jsonObject"><span class="nav-number">1.1.</span> <span class="nav-text">第二步: self.object中 处理 jsonObject</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SwiftyJSON-路径下标"><span class="nav-number">1.2.</span> <span class="nav-text">SwiftyJSON 路径下标</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">bamboomoon</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
