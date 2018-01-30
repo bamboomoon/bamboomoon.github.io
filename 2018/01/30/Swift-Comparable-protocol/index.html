@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Swift," />
 
 
 
@@ -94,16 +94,18 @@
 
 
 
-<meta name="description" content="聊吧 迟早出事">
-<meta property="og:type" content="website">
-<meta property="og:title" content="bamboomoon&#39;s Blog">
-<meta property="og:url" content="http://bamboomoon.cn/index.html">
+<meta name="description" content="Swift Comparable protocolComparable 作用实现这个 protocol，让你自定义的对象可以像 Int, String 一样可以比较大小。当然，也可以排序，也可以放在元组中，比较元组的大小 实现起来还是比较简单的，直接放代码123456789101112131415161718192021222324252627282930313233343536373839404">
+<meta name="keywords" content="Swift">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift Comparable protocol">
+<meta property="og:url" content="http://bamboomoon.cn/2018/01/30/Swift-Comparable-protocol/index.html">
 <meta property="og:site_name" content="bamboomoon&#39;s Blog">
-<meta property="og:description" content="聊吧 迟早出事">
+<meta property="og:description" content="Swift Comparable protocolComparable 作用实现这个 protocol，让你自定义的对象可以像 Int, String 一样可以比较大小。当然，也可以排序，也可以放在元组中，比较元组的大小 实现起来还是比较简单的，直接放代码123456789101112131415161718192021222324252627282930313233343536373839404">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-01-30T04:02:42.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="bamboomoon&#39;s Blog">
-<meta name="twitter:description" content="聊吧 迟早出事">
+<meta name="twitter:title" content="Swift Comparable protocol">
+<meta name="twitter:description" content="Swift Comparable protocolComparable 作用实现这个 protocol，让你自定义的对象可以像 Int, String 一样可以比较大小。当然，也可以排序，也可以放在元组中，比较元组的大小 实现起来还是比较简单的，直接放代码123456789101112131415161718192021222324252627282930313233343536373839404">
 
 
 
@@ -132,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="http://bamboomoon.cn/"/>
+  <link rel="canonical" href="http://bamboomoon.cn/2018/01/30/Swift-Comparable-protocol/"/>
 
 
 
 
 
-  <title>bamboomoon's Blog</title>
+  <title>Swift Comparable protocol | bamboomoon's Blog</title>
   
 
 
@@ -163,9 +165,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-   page-home 
- ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -248,9 +248,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -280,9 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/30/Swift-Comparable-protocol/" itemprop="url">Swift Comparable protocol</a></h1>
+          <h1 class="post-title" itemprop="name headline">Swift Comparable protocol</h1>
         
 
         <div class="post-meta">
@@ -332,9 +330,7 @@
       
 
       
-        
-          
-            <h1 id="Swift-Comparable-protocol"><a href="#Swift-Comparable-protocol" class="headerlink" title="Swift Comparable protocol"></a>Swift Comparable protocol</h1><h2 id="Comparable-作用"><a href="#Comparable-作用" class="headerlink" title="Comparable 作用"></a>Comparable 作用</h2><p>实现这个 protocol，让你自定义的对象可以像 Int, String 一样可以比较大小。当然，也可以排序，也可以放在元组中，比较元组的大小</p>
+        <h1 id="Swift-Comparable-protocol"><a href="#Swift-Comparable-protocol" class="headerlink" title="Swift Comparable protocol"></a>Swift Comparable protocol</h1><h2 id="Comparable-作用"><a href="#Comparable-作用" class="headerlink" title="Comparable 作用"></a>Comparable 作用</h2><p>实现这个 protocol，让你自定义的对象可以像 Int, String 一样可以比较大小。当然，也可以排序，也可以放在元组中，比较元组的大小</p>
 <h2 id="实现起来还是比较简单的，直接放代码"><a href="#实现起来还是比较简单的，直接放代码" class="headerlink" title="实现起来还是比较简单的，直接放代码"></a>实现起来还是比较简单的，直接放代码</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// 首先定义你自己的struct、slass、enum </span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 这里定义 struct </span></span><br><span class="line"><span class="comment">// 同时定义了3个变量，用来比较</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">People</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> money = <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> houseCount = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> carCount = <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">People</span>: <span class="title">Comparable</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Required</span></span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="keyword">func</span> &lt;(lhs: People, rhs: People) -&gt; <span class="title">Bool</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> lhs.money != rhs.money &#123;</span><br><span class="line">            <span class="keyword">return</span> lhs.money &lt; rhs.money</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> lhs.houseCount != rhs.houseCount &#123;</span><br><span class="line">            <span class="keyword">return</span> lhs.houseCount &lt; rhs.houseCount</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> lhs.carCount &lt; rhs.carCount</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Required</span></span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="keyword">func</span> ==<span class="params">(lhs: People, rhs: People)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> lhs.money == rhs.money &amp;&amp; lhs.houseCount == rhs.houseCount &amp;&amp; lhs.carCount == rhs.carCount</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="keyword">func</span> &lt;=(lhs: People, rhs: People) -&gt; <span class="title">Bool</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> lhs == rhs &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> lhs &lt; rhs</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">prefix</span> <span class="keyword">static</span> <span class="function"><span class="keyword">func</span> ..&lt;(maximum: People) -&gt; <span class="title">PartialRangeUpTo</span>&lt;People&gt; </span>&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="type">PartialRangeUpTo</span>.<span class="keyword">init</span>(maximum)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><ul>
 <li>&lt; 和 == 是必须实现的，Comparable 是继承于 Equatable的</li>
@@ -344,8 +340,6 @@
 </ul>
 <h2 id="调用我们的实现"><a href="#调用我们的实现" class="headerlink" title="调用我们的实现"></a>调用我们的实现</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> me = <span class="type">People</span>.<span class="keyword">init</span>(money: <span class="number">1000</span>, houseCount: <span class="number">3</span>, carCount: <span class="number">2</span>)</span><br><span class="line"><span class="keyword">let</span> you = <span class="type">People</span>.<span class="keyword">init</span>(money: <span class="number">100</span>, houseCount: <span class="number">3</span>, carCount: <span class="number">2</span>)</span><br><span class="line"><span class="keyword">let</span> he = <span class="type">People</span>.<span class="keyword">init</span>(money: <span class="number">400</span>, houseCount: <span class="number">2</span>, carCount: <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 排序</span></span><br><span class="line"><span class="keyword">let</span> peoples = [me, you, he]</span><br><span class="line"><span class="keyword">let</span> sortdPeos = peoples.sorted &#123; $<span class="number">0</span> &lt; $<span class="number">1</span>&#125;</span><br><span class="line"><span class="comment">// sortdPeos == [you, he, me]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 比较大小</span></span><br><span class="line"><span class="keyword">let</span> isWinner = me &gt; you</span><br><span class="line"><span class="keyword">if</span> isWinner &#123;</span><br><span class="line">     <span class="built_in">print</span>(<span class="string">"我是人生赢家"</span>)</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"我不是人生赢家"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 输出：我是人生赢家</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 用于元组比较</span></span><br><span class="line"><span class="keyword">let</span> tuple1 = (me, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>)</span><br><span class="line"><span class="keyword">let</span> tuple2 = (me, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">6</span>)</span><br><span class="line"><span class="keyword">let</span> tu = tuple1 &lt; tuple2</span><br><span class="line"><span class="comment">// tu == true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用 ..&lt;</span></span><br><span class="line"><span class="keyword">let</span> m = ..&lt;me</span><br><span class="line"><span class="keyword">let</span> contatinsYou = m.<span class="built_in">contains</span>(you)</span><br><span class="line"><span class="comment">// contatinsYou == true</span></span><br></pre></td></tr></table></figure>
 
-          
-        
       
     </div>
     
@@ -360,270 +354,36 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://bamboomoon.cn/2017/02/13/leetcode-Add-Two-Numbers-Golang/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="bamboomoon">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://7xwhg8.com1.z0.glb.clouddn.com/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="bamboomoon's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/02/13/leetcode-Add-Two-Numbers-Golang/" itemprop="url">leetcode-Add Two Numbers Golang</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-13T23:08:20+08:00">
-                2017-02-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/tags/Swift/" rel="tag"># Swift</a>
           
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          <h1 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h1><blockquote>
-<p>You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.</p>
-<p>You may assume the two numbers do not contain any leading zero, except the number 0 itself.</p>
-<p>Input: (2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)<br>Output: 7 -&gt; 0 -&gt; 8</p>
-</blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/02/13/leetcode-Add-Two-Numbers-Golang/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/13/leetcode-Add-Two-Numbers-Golang/" rel="next" title="leetcode-Add Two Numbers Golang">
+                <i class="fa fa-chevron-left"></i> leetcode-Add Two Numbers Golang
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://bamboomoon.cn/2016/11/03/理解-Objective-C错误模型/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="bamboomoon">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://7xwhg8.com1.z0.glb.clouddn.com/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="bamboomoon's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/11/03/理解-Objective-C错误模型/" itemprop="url">理解 Objective-C错误模型</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+          <div class="post-nav-prev post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-03T22:30:35+08:00">
-                2016-11-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <h1 id="理解-Objective-C错误模型"><a href="#理解-Objective-C错误模型" class="headerlink" title="理解 Objective-C错误模型"></a>理解 Objective-C错误模型</h1><h2 id="OC-中的异常"><a href="#OC-中的异常" class="headerlink" title="OC 中的异常"></a>OC 中的异常</h2><ul>
-<li><strong>自动引用计数</strong>在默认的情况下,不是异常安全的. 这意味着:如果抛出了异常那么本应在作用域末尾释放的对象现在却不会自动释放了 =&gt; 这就会导致内存泄漏</li>
-<li>可以通过打开 编译器叫 <strong>-fobjc-arc-exceptions</strong>的标志来实现异常安全</li>
-</ul>
-<hr>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2016/11/03/理解-Objective-C错误模型/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -633,138 +393,11 @@
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://bamboomoon.cn/2016/11/03/iOS实现计步功能/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="bamboomoon">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://7xwhg8.com1.z0.glb.clouddn.com/touxiang.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="bamboomoon's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/11/03/iOS实现计步功能/" itemprop="url">iOS实现计步功能</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-03T16:39:20+08:00">
-                2016-11-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="iOS中计步功能的实现"><a href="#iOS中计步功能的实现" class="headerlink" title="iOS中计步功能的实现!!!"></a>iOS中计步功能的实现!!!</h1><ol>
-<li>Core Motion框架可以实现.</li>
-<li>在 iOS10之后想访问健康数据,需要在 Info.plist 文件中加入<strong>NSMotionUsageDescription</strong>字段d</li>
-<li>使用 CoreMotion 框架中的 <strong>CMPedometer</strong>这个类就能够实现</li>
-</ol>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2016/11/03/iOS实现计步功能/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+    <div class="post-spread">
       
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
 
 
           </div>
@@ -772,6 +405,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -792,8 +429,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://7xwhg8.com1.z0.glb.clouddn.com/touxiang.jpg"
@@ -846,6 +492,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Swift-Comparable-protocol"><span class="nav-number">1.</span> <span class="nav-text">Swift Comparable protocol</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Comparable-作用"><span class="nav-number">1.1.</span> <span class="nav-text">Comparable 作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现起来还是比较简单的，直接放代码"><span class="nav-number">1.2.</span> <span class="nav-text">实现起来还是比较简单的，直接放代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#注意"><span class="nav-number">1.2.1.</span> <span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调用我们的实现"><span class="nav-number">1.3.</span> <span class="nav-text">调用我们的实现</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -959,10 +621,10 @@
   
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
 
-  
+
 
   
 
